@@ -4,14 +4,11 @@ export default function MisFavoritos() {
   const [favoriteQuotes, setFavoriteQuotes] = useState([]);
 
   useEffect(() => {
-    // Obtiene los "me gusta" almacenados en localStorage
     const storedLikes = localStorage.getItem('likes');
     if (storedLikes) {
       const likesObj = JSON.parse(storedLikes);
       const favoriteQuotesIds = Object.keys(likesObj).filter(id => likesObj[id]);
-      // Obtiene las citas almacenadas en localStorage
       const storedQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
-      // Filtra las citas que tienen like
       const favorites = storedQuotes.filter(quote => favoriteQuotesIds.includes(quote.id));
       setFavoriteQuotes(favorites);
     }

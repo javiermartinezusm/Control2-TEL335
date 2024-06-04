@@ -39,7 +39,6 @@ export default function Component() {
         })
         .then((data) => {
           if (Array.isArray(data.result)) {
-            // Almacena las citas en localStorage
             localStorage.setItem('quotes', JSON.stringify(data.result));
             setData(data.result);
             setQuotes(data.result);
