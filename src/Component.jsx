@@ -9,18 +9,21 @@ export default function Component() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [quotes, setQuotes] = useState([]);
   const [likes, setLikes] = useState(localStorage.getItem('likes') ? JSON.parse(localStorage.getItem('likes')) : {});
-  const toggleLike = (jokeId) => {
-    const updatedLikes = { ...likes, [jokeId]: !likes[jokeId] };
-    setLikes(updatedLikes);
-    localStorage.setItem('likes', JSON.stringify(updatedLikes));
-  };
+
   const textOnChange = (event) => {
     setText(event.target.value);
   };
 
   const buttonOnClick = () => {
     setSearch(text);
+  };
+
+  const toggleLike = (quoteId) => {
+    const updatedLikes = { ...likes, [quoteId]: !likes[quoteId] };
+    setLikes(updatedLikes);
+    localStorage.setItem('likes', JSON.stringify(updatedLikes));
   };
 
   useEffect(() => {
@@ -36,14 +39,13 @@ export default function Component() {
         })
         .then((data) => {
           if (Array.isArray(data.result)) {
+            // Almacena las citas en localStorage
+            localStorage.setItem('quotes', JSON.stringify(data.result));
             setData(data.result);
-            const initialLikes = {};
-            data.result.forEach(joke => {
-              initialLikes[joke.id] = false;
-            });
-            setLikes(initialLikes);
+            setQuotes(data.result);
           } else {
             setData([]);
+            setQuotes([]);
           }
           setLoading(false);
         })
@@ -54,24 +56,17 @@ export default function Component() {
     }
   }, [search]);
 
-  const handleLikeClick = (id) => {
-    setLikes((prevLikes) => ({
-      ...prevLikes,
-      [id]: !prevLikes[id],
-    }));
-  };
-
   return (
     <div>
       <input type="text" value={text} onChange={textOnChange} />
       <button onClick={buttonOnClick}>Actualizar</button>
       {loading && <p>Cargando...</p>}
       {error && <p>Error: {error.message}</p>}
-      {data.length > 0 ? (
+      {quotes.length > 0 ? (
         <div>
           <h2>Resultados de la búsqueda:</h2>
-          {data.map((joke) => (
-            <div key={joke.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
+          {quotes.map((quote) => (
+            <div key={quote.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
               <table border="1" style={{ width: '80%', borderCollapse: 'collapse' }}>
                 <thead>
                   <tr>
@@ -82,17 +77,17 @@ export default function Component() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{joke.value}</td>
-                    <td>{new Date(joke.created_at).toLocaleDateString()}</td>
-                    <td>{joke.categories.length > 0 ? joke.categories.join(", ") : "Sin categoría"}</td>
+                    <td>{quote.value}</td>
+                    <td>{new Date(quote.created_at).toLocaleDateString()}</td>
+                    <td>{quote.categories.length > 0 ? quote.categories.join(", ") : "Sin categoría"}</td>
                   </tr>
                 </tbody>
               </table>
-              <div style={{ marginLeft: '10px', cursor: 'pointer' }} onClick={() => handleLikeClick(joke.id)}>
-              <FontAwesomeIcon 
-                icon={likes[joke.id] ? solidHeart : regularHeart} 
-                style={{ color: likes[joke.id] ? 'white' : 'black' }}
-              />
+              <div style={{ marginLeft: '10px', cursor: 'pointer' }} onClick={() => toggleLike(quote.id)}>
+                <FontAwesomeIcon 
+                  icon={likes[quote.id] ? solidHeart : regularHeart} 
+                  style={{ color: likes[quote.id] ? 'white' : 'black' }}
+                />
               </div>
             </div>
           ))}

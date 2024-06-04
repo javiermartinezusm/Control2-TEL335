@@ -14,11 +14,17 @@ function App() {
     // Redirige al usuario al inicio de la aplicación
     window.location.href = "/";
   };
+  
   return (
     <div className="App">
       <header className="App-header">
-      <button onClick={redirectToFavorites}>Mis Favoritos</button>
-      <button onClick={redirectToHome}> <FontAwesomeIcon icon={faHome} /> </button>
+        {/* Contenedor para los botones */}
+        <div className="button-container">
+          <button onClick={redirectToFavorites}>Mis Favoritos</button>
+          <button onClick={redirectToHome}>
+            <FontAwesomeIcon icon={faHome} />
+          </button>
+        </div>
         {/* Renderizado condicional para determinar qué componente mostrar */}
         {window.location.pathname === '/mis-favoritos' ? (
           <MisFavoritos />

@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.button-container {
+  display: flex;
+  align-items: center; /* Alinea verticalmente los botones */
+}
+
+.button-container button {
+  margin-right: 10px; /* Espacio entre los botones */
+}
