@@ -1,3 +1,9 @@
+# Otros 
+## Library FontAwesome
+npm install @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome
+npm install @fortawesome/free-regular-svg-icons
+
+# Instrucciones para inicar react-------------
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
