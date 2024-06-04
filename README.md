@@ -3,6 +3,9 @@
 npm install @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome
 npm install @fortawesome/free-regular-svg-icons
 
+## React Router
+npm install react-router-dom
+
 # Instrucciones para inicar react-------------
 # Getting Started with Create React App
 
