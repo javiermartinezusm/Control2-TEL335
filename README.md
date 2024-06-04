@@ -1,4 +1,10 @@
-# Otros 
+# Alumno
+Javier Martinez
+ROL: 202030004-6
+
+*disculpen no entendí como no cree la rama main, espero que de todas formas me puedan evaluar :)
+
+# Instalaciones 
 ## Library FontAwesome
 npm install @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome
 npm install @fortawesome/free-regular-svg-icons
